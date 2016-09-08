@@ -7,3 +7,6 @@ var ContactSchema = new Schema({
   phone: String,
   facebookUrl: String
 })
+
+var Contact = mongoose.model('Contact', ContactSchema);
+module.exports = Contact;

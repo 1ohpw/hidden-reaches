@@ -1,13 +1,13 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-//var Contact = require(./contact);
+var Contact = require('./contact');
 
 var ListingSchema = new Schema({
   imgUrl: String,
   address: String,
   title: String,
   rent: Number,
-  //Contact: [Contact.schema],
+  Contact: [Contact.schema],
   details: String,
   neighborhood: String
 });
