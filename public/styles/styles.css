@@ -1,11 +1,17 @@
+
+html, body {
+  /*background-color: blue;*/
+}
+
 .jumbotron {
-  background-image: url(/images/goldengate.jpg);
+  background-image: url(../images/goldengate.jpg);
   background-size: cover;
   background-repeat: no-repeat;
   color: #EEE;
 }
+
 .jumbotron .container {
-  height: 350px;
+  height: 200px;
 }
 
 #mapView {
