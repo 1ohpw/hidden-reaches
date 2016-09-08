@@ -13,6 +13,7 @@
   margin-top: -25px;
 }
 
-#mapView {
-  background-color: black;
+#map {
+  height: 400px;
+  width: 400px;
 }

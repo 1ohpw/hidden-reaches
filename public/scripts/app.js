@@ -36,14 +36,12 @@ $(document).ready(function(){
 });
 
 // function to initiate Google Map
-function initMap(){
-    var pos = {lat: 37.77, lng: -122.45};
-    map = new google.maps.Map(document.getElementById("map"), {
-        center: pos,
-        zoom: 2
-    });
+function initMap() {
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: -34.397, lng: 150.644},
+    zoom: 8
+  });
 }
-
 
 // helper function to render all listings to view
 // note: we can empty and re-render the collection each time our post or update data changes
