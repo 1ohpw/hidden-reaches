@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Bay Area Cheap Rents</title>
+
+    <!-- STYLESHEETS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles/styles.css">
+
+    <!-- VENDOR SCRIPTS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
+
+    <!-- APPLICATION SCRIPTS -->
+    <script src="scripts/app.js"></script>
+
+  </head>
+
+  <body>
+
+    <div class="jumbotron">
+      <div class="container">
+        <h1>Welcome to Bay Area Cheap Rents</h1>
+        <p>Find your perfect bay area apartment at the right price!</p>
+        <button class='btn btn-primary add-listing' id="createNewListing">Create a new listing</button>
+      </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div id="mapView">Google Map</div>
+        </div>
+        <div class="col-md-6">
+            <div id="listingView">
+                <h1>Top SF listings</h1>
+                  <p>Listing title 1</p>
+                  <p>Listing title 2</p>
+                  <p>Listing title 3</p>
+
+                <!-- <script id="listings-template" type="text/x-handlebars-template">
+                    {{#each listings}}
+                        <p>{{listings.title}}</p>
+                    {{/each}}
+                </script> -->
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+  </body>
+
+</html>
