@@ -3,20 +3,21 @@ console.log("Sanity Check: JS is working!");
 var listingsList;
 var map;
 
-var allListings = [
-  {
-  title: "Sick pad in Russian Hill"
-  },
-  {
-  title: "Great Pac Heights Place"
-  },
-  {
-  title: "Perfect Oakland Crib"
-  },
-  {
-  title: "SOMA Living"
-  }
-];
+var allListings;
+// = [
+//   {
+//   title: "Sick pad in Russian Hill"
+//   },
+//   {
+//   title: "Great Pac Heights Place"
+//   },
+//   {
+//   title: "Perfect Oakland Crib"
+//   },
+//   {
+//   title: "SOMA Living"
+//   }
+// ];
 
 
 
@@ -31,9 +32,22 @@ $(document).ready(function(){
   var source = $('#listings-template').html();
   template = Handlebars.compile(source);
 
+  $.ajax({
+    method: 'GET',
+    url: '/api/listings',
+    success: onSuccess
+  })
+
   renderListings();
 
 });
+
+function onSuccess(json) {
+  allListings = json;
+  console.log(allListings);
+  renderListings(allListings);
+}
+
 
 // function to initiate Google Map
 function initMap() {
@@ -45,12 +59,12 @@ function initMap() {
 
 // helper function to render all listings to view
 // note: we can empty and re-render the collection each time our post or update data changes
-function renderListings () {
+function renderListings (listListings) {
   // empty existing posts from view
   $listingsList.empty();
 
   // pass `allListings` into the template function
-  var listingsHtml = template({ listings: allListings });
+  var listingsHtml = template({ listings: listListings });
 
   // append html to the view
   $listingsList.append(listingsHtml);
