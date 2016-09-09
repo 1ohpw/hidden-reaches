@@ -43,22 +43,28 @@ function handleNewListingSubmit(e) {
   e.preventDefault();
   var $modal = $('#listingModal');
   var $imgUrlField = $modal.find('#listingImgUrl');
-  var $addressField = $modal.find('#listingAddress');
+  var $streetField = $modal.find('#listingStreet');
+  var $cityField = $modal.find('#listingCity');
+  var $stateField = $modal.find('#listingState');
+  var $zipField = $modal.find('#listingZip');
   var $titleField = $modal.find('#listingTitle');
   var $rentField = $modal.find('#listingRent');
   // var $contactField = $modal.find('#listingContact');
-  var $detailsField = $modal.find('#listingDetails');
-  var $neighborhoodField = $modal.find('#listingNeighborhood');
+  // var $detailsField = $modal.find('#listingDetails');
+  // var $neighborhoodField = $modal.find('#listingNeighborhood');
 
   // get data from modal fields
   var dataToPost = {
     imgUrl: $imgUrlField.val(),
-    address: $addressField.val(),
+    street: $streetField.val(),
+    city: $cityField.val(),
+    state: $stateField.val(),
+    zip: $zipField.val(),
     title: $titleField.val(),
     rent: $rentField.val(),
-    // Contact: $contactField.val(),
-    details: $detailsField.val(),
-    neighborhood: $neighborhoodField.val()
+    // contact: $contactField.val(),
+    // details: $detailsField.val(),
+    // neighborhood: $neighborhoodField.val()
   };
   console.log(dataToPost);
 
@@ -73,12 +79,15 @@ function handleNewListingSubmit(e) {
 
   // clear form
   $imgUrlField.val('');
-  $addressField.val('');
+  $streetField.val('');
+  $cityField.val('');
+  $stateField.val('');
+  $zipField.val('');
   $titleField.val('');
   $rentField.val('');
   // $contactField.val('');
-  $detailsField.val('');
-  $neighborhoodField.val('');
+  // $detailsField.val('');
+  // $neighborhoodField.val('');
 
   // close modal
   $modal.modal('hide');
