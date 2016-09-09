@@ -7,7 +7,7 @@ var ListingSchema = new Schema({
   address: String,
   title: String,
   rent: Number,
-  Contact: [Contact.schema],
+  Contact: {},
   details: String,
   neighborhood: String
 });
