@@ -18,6 +18,15 @@ function show(req, res) {
   });
 }
 
+function create(req, res) {
+  console.log(req.body);
+  db.Listing.create(req.body, function(err, listing) {
+    if (err) { console.log('error', err); }
+    console.log(listing);
+    res.json(listing);
+  });
+}
+
 function destroy(req, res) {
   db.Listing.findOneAndRemove({_id: req.params.id}, function(err, deletedListing) {
     res.json(deletedListing);
@@ -26,6 +35,7 @@ function destroy(req, res) {
 
 module.exports = {
   index: index,
+  create: create,
   show: show,
   destroy: destroy
 }
