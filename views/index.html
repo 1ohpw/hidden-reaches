@@ -13,6 +13,7 @@
 
     <!-- VENDOR SCRIPTS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <!-- Google Maps API -->
     <!-- Google Maps API key = AIzaSyARQHjCO5uJhqZTFtRIW0_pl77gch1ve8s -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyARQHjCO5uJhqZTFtRIW0_pl77gch1ve8s"></script>
@@ -25,7 +26,6 @@
   </head>
 
   <body>
-
     <div class="jumbotron">
       <div class="container">
         <h1 id="title">Welcome to Bay Area Cheap Rents</h1>
@@ -45,16 +45,34 @@
                     <script id="listings-template" type="text/x-handlebars-template">
                       <ul>
                         {{#each listings}}
-                          <li><a href="">{{title}}</a></li>
+                          <li><a onclick="openListingModal('{{_id}}')" href="" data-toggle="modal" data-target="#{{_id}}">{{title}}</a></li>
                         {{/each}}
                       </ul>
                     </script>
+
                     <!-- <p>Listing title 1</p>
                     <p>Listing title 2</p>
                     <p>Listing title 3</p> -->
                   </div>
 
             </div>
+        </div>
+        <div id="listing-modal-container" class="row">
+          <script id="listing-modal-template" type="text/x-handlebars-template">
+            <div class="modal" id="myModal" role="dialog">
+              <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                      <h2 class="text-center">{{title}}</h2>
+                      <img id="listing-img" class="img-responsive center-block" src="{{imgUrl}}">
+                      <p id="street" class="text-center"><em>{{street}}</em></p>
+                      <p id="city-state" class="text-center">{{city}}, {{state}}</p>
+                      <p id="rent" class="text-center">${{rent}}</p>
+                  </div>
+                </div>
+             </div>
+            </div>
+          </script>
         </div>
     </div>
 

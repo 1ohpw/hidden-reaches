@@ -1,25 +1,11 @@
-console.log("Sanity Check: JS is working!");
+
 // Global Variabales
 var listingsList;
 var map;
+var listingModalTemplate;
 
 var allListings;
-// = [
-//   {
-//   title: "Sick pad in Russian Hill"
-//   },
-//   {
-//   title: "Great Pac Heights Place"
-//   },
-//   {
-//   title: "Perfect Oakland Crib"
-//   },
-//   {
-//   title: "SOMA Living"
-//   }
-// ];
-
-
+var geocoder = new google.maps.Geocoder();
 
 $(document).ready(function(){
 
@@ -40,20 +26,80 @@ $(document).ready(function(){
 
   renderListings();
 
+  //$('#listingModal').modal();
+
+  var listingModalSource = $('#listing-modal-template').html();
+  listingModalTemplate = Handlebars.compile(listingModalSource);
+
 });
+
+
 
 function onSuccess(json) {
   allListings = json;
-  console.log(allListings);
   renderListings(allListings);
+
+  allListings.forEach(function(listing) {
+    var formattedAddress = listing.street + ' ' + listing.city + ',' +
+                            listing.state + ' ' + listing.zip;
+    geocodeAddress(formattedAddress);
+  });
 }
 
+function geocodeAddress(geoAddress) {
+  var geoLatLng;
+  geocoder.geocode({
+      address: geoAddress
+    }, function(results, status) {
+        if(status == 'OK') {
+            var geoLat = results[0].geometry.location.lat();
+            var geoLng = results[0].geometry.location.lng();
+            geoLatLng = {
+              lat: geoLat,
+              lng: geoLng
+            }
+
+            var marker = new google.maps.Marker({
+            position: geoLatLng,
+            map: map
+      });
+        }else{
+            console.log("Geocode unsuccessful");
+        }
+      });
+}
+
+
+
+function openListingModal(id) {
+  $.ajax({
+    method: 'GET',
+    url: 'api/listings/' + id,
+    success: function(json) {
+      var listingModalHtml = listingModalTemplate({
+        imgUrl: "http://placehold.it/700x300",
+        title: json.title,
+        street: json.street,
+        city: json.city,
+        state: json.state,
+        rent: json.rent
+      });
+
+      $('#listing-modal-container').empty();
+      $('#listing-modal-container').append(listingModalHtml);
+
+      $('#myModal').modal();
+    }
+  })
+
+}
 
 // function to initiate Google Map
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: -34.397, lng: 150.644},
-    zoom: 8
+    center: {lat: 37.7749, lng: -122.4194},
+    zoom: 10,
+    mapTypeId: 'hybrid'
   });
 }
 

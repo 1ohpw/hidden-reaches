@@ -15,5 +15,20 @@
 
 #map {
   height: 400px;
-  width: 400px;
+  width: 600px;
+}
+
+#listing-img {
+  padding: 20px;
+}
+
+#city-state {
+  font-weight: 700;
+  font-size: 20px;
+}
+
+#rent {
+  color: green;
+  font-weight: 700;
+  font-size: 48px;
 }

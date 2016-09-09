@@ -2,36 +2,36 @@ var db = require('./models');
 
 var listingArray = [{
   imgUrl: "",
-  address: "255 King St San Francisco, CA",
+  street: "255 King St",
+  city: "San Francisco",
+  state: "CA",
+  zip: 94017,
   title: "Bachelor Pad",
   rent: 800,
-  //Contact: [Contact.schema],
-  details: "Really cool studio",
-  neighborhood: "SF"
 },{
   imgUrl: "",
-  address: "225 Bush St San Francisco, CA",
+  street: "225 Bush St",
+  city: "San Francisco",
+  state: "CA",
+  zip: 94104,
   title: "GA",
   rent: 1000,
-  //Contact: [Contact.schema],
-  details: "School/Start-up",
-  neighborhood: "SF"
 },{
   imgUrl: "",
-  address: "301 King St Oakland, CA",
+  street: "6403 Foothill Blvd",
+  city: "Oakland",
+  state: "CA",
+  zip: 94605,
   title: "1 BR open",
   rent: 1000,
-  //Contact: [Contact.schema],
-  details: "Shared space",
-  neighborhood: "Oakland"
 },{
   imgUrl: "",
-  address: "1625 Orchard St San Leandro, CA",
+  street: "1625 Orchard Ave",
+  city: "San Leandro",
+  state: "CA",
+  zip: 94577,
   title: "Living room open",
   rent: 750,
-  //Contact: [Contact.schema],
-  details: "Just the living room",
-  neighborhood: "San Leandro"
 }];
 
 

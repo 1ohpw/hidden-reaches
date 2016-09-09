@@ -4,12 +4,13 @@ var Contact = require('./contact');
 
 var ListingSchema = new Schema({
   imgUrl: String,
-  address: String,
+  street: String,
+  city: String,
+  state: String,
+  zip: Number,
   title: String,
   rent: Number,
   Contact: [Contact.schema],
-  details: String,
-  neighborhood: String
 });
 
 var Listing = mongoose.model('Listing', ListingSchema);
