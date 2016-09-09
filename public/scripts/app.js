@@ -50,9 +50,6 @@ function handleNewListingSubmit(e) {
   var $zipField = $modal.find('#listingZip');
   var $titleField = $modal.find('#listingTitle');
   var $rentField = $modal.find('#listingRent');
-  // var $contactField = $modal.find('#listingContact');
-  // var $detailsField = $modal.find('#listingDetails');
-  // var $neighborhoodField = $modal.find('#listingNeighborhood');
 
   // get data from modal fields
   var dataToPost = {
@@ -67,7 +64,6 @@ function handleNewListingSubmit(e) {
     // details: $detailsField.val(),
     // neighborhood: $neighborhoodField.val()
   };
-  console.log(dataToPost);
 
   // POST to SERVER
   $.ajax({
@@ -98,12 +94,13 @@ function handleNewListingSubmit(e) {
 
 function newListingSuccess(json) {
   newListing = json;
-  geocodeAddress(newListing);
+  var formattedAddress = newListing.street + ' ' + newListing.city + ',' +
+                            newListing.state + ' ' + newListing.zip;
+  var id = newListing._id;
+  geocodeAddress(formattedAddress, id);
   allListings.unshift(newListing);
   console.log(allListings);
   renderListings(allListings);
-
-  // update the mapview
 }
 
 
