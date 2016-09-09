@@ -88,8 +88,10 @@ function handleNewListingSubmit(e) {
 
 function newListingSuccess(json) {
   newListing = json;
+  geocodeAddress(newListing);
   allListings.unshift(newListing);
   renderListings(allListings);
+
   // update the mapview
   console.log(json);
 }
@@ -107,11 +109,12 @@ function onSuccess(json) {
   allListings.forEach(function(listing) {
     var formattedAddress = listing.street + ' ' + listing.city + ',' +
                             listing.state + ' ' + listing.zip;
-    geocodeAddress(formattedAddress);
+    var id = listing._id;
+    geocodeAddress(formattedAddress, id);
   });
 }
 
-function geocodeAddress(geoAddress) {
+function geocodeAddress(geoAddress, id) {
   var geoLatLng;
   geocoder.geocode({
       address: geoAddress
@@ -126,8 +129,15 @@ function geocodeAddress(geoAddress) {
 
             var marker = new google.maps.Marker({
             position: geoLatLng,
-            map: map
-      });
+            map: map,
+            animation: google.maps.Animation.DROP
+            });
+
+            marker.addListener('click', function() {
+              //console.log('clicked: ' + );
+              //console.log(id);
+              openListingModal(id);
+            });
         }else{
             console.log("Geocode unsuccessful");
         }
