@@ -14,4 +14,3 @@ var ListingSchema = new Schema({
 
 var Listing = mongoose.model('Listing', ListingSchema);
 module.exports = Listing;
-
