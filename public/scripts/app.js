@@ -1,3 +1,4 @@
+console.log("Sanity Check: JS is working!");
 
 // Global Variabales
 var listingsList;
@@ -99,10 +100,10 @@ function newListingSuccess(json) {
   newListing = json;
   geocodeAddress(newListing);
   allListings.unshift(newListing);
+  console.log(allListings);
   renderListings(allListings);
 
   // update the mapview
-  console.log(json);
 }
 
 
@@ -112,7 +113,7 @@ function newListingError(e) {
 
 
 function onSuccess(json) {
-  allListings = json;
+  allListings = json.reverse();
   renderListings(allListings);
 
   allListings.forEach(function(listing) {
@@ -192,6 +193,8 @@ function initMap() {
 function renderListings (listListings) {
   // empty existing posts from view
   $listingsList.empty();
+
+  // listListings.reverse();
 
   // pass `allListings` into the template function
   var listingsHtml = template({ listings: listListings });
