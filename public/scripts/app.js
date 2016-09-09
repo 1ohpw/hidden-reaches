@@ -4,21 +4,6 @@ var listingsList;
 var map;
 
 var allListings;
-// = [
-//   {
-//   title: "Sick pad in Russian Hill"
-//   },
-//   {
-//   title: "Great Pac Heights Place"
-//   },
-//   {
-//   title: "Perfect Oakland Crib"
-//   },
-//   {
-//   title: "SOMA Living"
-//   }
-// ];
-
 
 
 $(document).ready(function(){
@@ -40,7 +25,72 @@ $(document).ready(function(){
 
   renderListings();
 
+  // click to initiate API call to add a new listing
+  $('#addNewListing').on('click', handleNewListingSubmit);
+
+
 });
+
+
+// when the song modal submit button is clicked:
+function handleNewListingSubmit(e) {
+  e.preventDefault();
+  var $modal = $('#listingModal');
+  var $imgUrlField = $modal.find('#listingImgUrl');
+  var $addressField = $modal.find('#listingAddress');
+  var $titleField = $modal.find('#listingTitle');
+  var $rentField = $modal.find('#listingRent');
+  // var $contactField = $modal.find('#listingContact');
+  var $detailsField = $modal.find('#listingDetails');
+  var $neighborhoodField = $modal.find('#listingNeighborhood');
+
+  // get data from modal fields
+  var dataToPost = {
+    imgUrl: $imgUrlField.val(),
+    address: $addressField.val(),
+    title: $titleField.val(),
+    rent: $rentField.val(),
+    // Contact: $contactField.val(),
+    details: $detailsField.val(),
+    neighborhood: $neighborhoodField.val()
+  };
+  console.log(dataToPost);
+
+  // POST to SERVER
+  $.ajax({
+    method: 'POST',
+    url: '/api/listings',
+    data: dataToPost,
+    success: newListingSuccess,
+    error: newListingError
+  });
+
+  // clear form
+  $imgUrlField.val('');
+  $addressField.val('');
+  $titleField.val('');
+  $rentField.val('');
+  // $contactField.val('');
+  $detailsField.val('');
+  $neighborhoodField.val('');
+
+  // close modal
+  $modal.modal('hide');
+
+};
+
+
+function newListingSuccess(json) {
+  // update the listing listview
+  // update the mapview
+  console.log(json);
+}
+
+
+function newListingError(e) {
+  console.log('Failed to add new listing');
+}
+
 
 function onSuccess(json) {
   allListings = json;
