@@ -4,10 +4,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Bay Area Cheap Rents</title>
+    <title>Hidden Reaches</title>
 
     <!-- STYLESHEETS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Amatica+SC:400,700" rel="stylesheet"><link href="https://fonts.googleapis.com/css?family=Nixie+One" rel="stylesheet">
     <link rel="stylesheet" href="/styles/styles.css">
     <!-- <link rel="stylesheet" href="../public/styles/styles.css"> -->
 
@@ -27,25 +28,25 @@
 
   <body>
     <div class="jumbotron">
-      <div class="container">
-        <h1 id="title">Welcome to Bay Area Cheap Rents</h1>
-        <p id="tagline">Find your perfect bay area apartment at the right price!</p>
+      <div class="container text-center">
+        <h1 id="title">Hidden Reaches.</h1>
+        <p id="tagline">Find your perfect bay area apartment at the right price.</p>
         <button type='button' class='btn btn-primary add-listing' data-toggle="modal" data-target="#listingModal" id="createNewListing">Create a new listing</button>
       </div>
     </div>
 
-    <div class="row">
-        <div class="col-sm-8 col-md-8">
+    <div id="main-container" class="row">
+        <div class="col-md-offset-1 col-sm-7 col-md-7" id="map-container">
             <div id="map"></div>
         </div>
-        <div class="col-sm-4 col-md-4">
+        <div class="col-sm-3 col-md-3" id="listview-container">
             <div id="listingView">
-                <h1>Top SF listings</h1>
                   <div id="listingTarget">
                     <script id="listings-template" type="text/x-handlebars-template">
                       <ul>
                         {{#each listings}}
-                          <li><a onclick="openListingModal('{{_id}}')" href="" data-toggle="modal" data-target="#{{_id}}">{{title}}</a></li>
+                          <li><a onclick="openListingModal('{{_id}}', '{{street}} {{city}} {{state}} {{zip}}')" href="" data-toggle="modal" data-target="#{{_id}}">{{title}}</a></li>
+                          <hr>
                         {{/each}}
                       </ul>
                     </script>

@@ -99,7 +99,6 @@ function newListingSuccess(json) {
   var id = newListing._id;
   geocodeAddress(formattedAddress, id);
   allListings.unshift(newListing);
-  console.log(allListings);
   renderListings(allListings);
 }
 
@@ -122,13 +121,15 @@ function onSuccess(json) {
 }
 
 function geocodeAddress(geoAddress, id) {
+  var geoLat;
+  var geoLng;
   var geoLatLng;
   geocoder.geocode({
       address: geoAddress
     }, function(results, status) {
         if(status == 'OK') {
-            var geoLat = results[0].geometry.location.lat();
-            var geoLng = results[0].geometry.location.lng();
+            geoLat = results[0].geometry.location.lat();
+            geoLng = results[0].geometry.location.lng();
             geoLatLng = {
               lat: geoLat,
               lng: geoLng
@@ -141,9 +142,7 @@ function geocodeAddress(geoAddress, id) {
             });
 
             marker.addListener('click', function() {
-              //console.log('clicked: ' + );
-              //console.log(id);
-              openListingModal(id);
+              openListingModal(id, geoAddress);
             });
         }else{
             console.log("Geocode unsuccessful");
@@ -153,13 +152,13 @@ function geocodeAddress(geoAddress, id) {
 
 
 
-function openListingModal(id) {
+function openListingModal(id, addressString) {
   $.ajax({
     method: 'GET',
     url: 'api/listings/' + id,
     success: function(json) {
       var listingModalHtml = listingModalTemplate({
-        imgUrl: "http://placehold.it/700x300",
+        imgUrl: "https://maps.googleapis.com/maps/api/streetview?size=700x300&location=" + addressString +"&heading=151.78&pitch=-0.76&key=AIzaSyARQHjCO5uJhqZTFtRIW0_pl77gch1ve8s",
         title: json.title,
         street: json.street,
         city: json.city,
@@ -190,8 +189,6 @@ function initMap() {
 function renderListings (listListings) {
   // empty existing posts from view
   $listingsList.empty();
-
-  // listListings.reverse();
 
   // pass `allListings` into the template function
   var listingsHtml = template({ listings: listListings });
