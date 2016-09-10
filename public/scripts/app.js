@@ -158,7 +158,7 @@ function openListingModal(id, addressString) {
     url: 'api/listings/' + id,
     success: function(json) {
       var listingModalHtml = listingModalTemplate({
-        imgUrl: "https://maps.googleapis.com/maps/api/streetview?size=700x300&location=" + addressString +"&heading=151.78&pitch=-0.76&key=AIzaSyARQHjCO5uJhqZTFtRIW0_pl77gch1ve8s",
+        imgUrl: "https://maps.googleapis.com/maps/api/streetview?size=700x300&location=" + addressString + "&fov=75&pitch=5&key=AIzaSyARQHjCO5uJhqZTFtRIW0_pl77gch1ve8s",
         title: json.title,
         street: json.street,
         city: json.city,
