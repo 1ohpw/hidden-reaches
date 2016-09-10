@@ -38,6 +38,8 @@ app.get('/api/listings/:id', controllers.listings.show);
 
 app.post('/api/listings', controllers.listings.create);
 
+app.delete('/api/listings/:id', controllers.listings.destroy);
+
 
 
 /**********

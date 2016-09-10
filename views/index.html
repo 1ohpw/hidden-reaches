@@ -34,7 +34,7 @@
       </div>
     </div>
 
-    <div class="row">
+    <div class="row" id="listingAll">
         <div class="col-sm-8 col-md-8">
             <div id="map"></div>
         </div>
@@ -45,7 +45,7 @@
                     <script id="listings-template" type="text/x-handlebars-template">
                       <ul>
                         {{#each listings}}
-                          <li><a onclick="openListingModal('{{_id}}')" href="" data-toggle="modal" data-target="#{{_id}}">{{title}}</a></li>
+                          <li><a onclick="openListingModal('{{_id}}')" href="" data-toggle="modal" data-listing-target="#{{_id}}">{{title}}</a></li>
                         {{/each}}
                       </ul>
                     </script>
@@ -60,11 +60,16 @@
               <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                       <h2 class="text-center">{{title}}</h2>
                       <img id="listing-img" class="img-responsive center-block" src="{{imgUrl}}">
                       <p id="street" class="text-center"><em>{{street}}</em></p>
                       <p id="city-state" class="text-center">{{city}}, {{state}}</p>
                       <p id="rent" class="text-center">${{rent}}</p>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-listing-id={{_id}} id="editListing">Edit Listing</button>
+                    <button type="button" class="deleteBtn btn btn-danger pull-right" id="deleteListing">Delete Listing</button>
                   </div>
                 </div>
              </div>

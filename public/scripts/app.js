@@ -8,6 +8,8 @@ var allListings;
 var geocoder = new google.maps.Geocoder();
 var allListings = [];
 var newListing;
+var deleteListingId;
+var markers = [];
 
 $(document).ready(function(){
 
@@ -26,18 +28,45 @@ $(document).ready(function(){
     success: onSuccess
   })
 
-  renderListings();
-
-
   var listingModalSource = $('#listing-modal-template').html();
   listingModalTemplate = Handlebars.compile(listingModalSource);
+
+  renderListings();
 
   // click to initiate API call to add a new listing
   $('#addNewListing').on('click', handleNewListingSubmit);
 
-
 });
 
+function handleDeleteListing(e) {
+  e.preventDefault();
+  // close modal
+  $('#myModal').modal('hide');
+  console.log('listing deleted')
+  console.log(deleteListingId);
+  $.ajax({
+    method: "DELETE",
+    url: 'api/listings/' + deleteListingId,
+    success: onDeleteSuccess
+  })
+}
+
+function onDeleteSuccess (json) {
+  var listingId = json._id;
+
+  function findListing(listing) {
+      return listing._id === listingId;
+  }
+
+  var listingToDelete = allListings.find(findListing);
+  allListings.splice(listingToDelete, 1);
+  renderListings(allListings);
+  renderMarkers();
+
+  var listingMarketToDelete = markers.find(findListing);
+  markers.splice(listingMarketToDelete, 1);
+  setAllMap();
+}
 
 // when the song modal submit button is clicked:
 function handleNewListingSubmit(e) {
@@ -112,13 +141,17 @@ function newListingError(e) {
 function onSuccess(json) {
   allListings = json.reverse();
   renderListings(allListings);
+  renderMarkers();
+}
 
+function renderMarkers() {
   allListings.forEach(function(listing) {
     var formattedAddress = listing.street + ' ' + listing.city + ',' +
                             listing.state + ' ' + listing.zip;
     var id = listing._id;
     geocodeAddress(formattedAddress, id);
   });
+  setAllMap();
 }
 
 function geocodeAddress(geoAddress, id) {
@@ -145,6 +178,9 @@ function geocodeAddress(geoAddress, id) {
               //console.log(id);
               openListingModal(id);
             });
+
+            markers.push(marker);
+
         }else{
             console.log("Geocode unsuccessful");
         }
@@ -152,12 +188,19 @@ function geocodeAddress(geoAddress, id) {
 }
 
 
+function setAllMap(map) {
+  for (var i = 0; i < markers.length; i++) {
+    markers[i].setMap(map);
+  }
+}
+
 
 function openListingModal(id) {
   $.ajax({
     method: 'GET',
     url: 'api/listings/' + id,
     success: function(json) {
+      deleteListingId = id;
       var listingModalHtml = listingModalTemplate({
         imgUrl: "http://placehold.it/700x300",
         title: json.title,
@@ -171,6 +214,8 @@ function openListingModal(id) {
       $('#listing-modal-container').append(listingModalHtml);
 
       $('#myModal').modal();
+
+      $('#deleteListing').on('click', handleDeleteListing);
     }
   })
 
