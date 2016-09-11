@@ -40,6 +40,7 @@ app.post('/api/listings', controllers.listings.create);
 
 app.delete('/api/listings/:id', controllers.listings.destroy);
 
+app.put('/api/listings/:id', controllers.listings.update);
 
 
 /**********
