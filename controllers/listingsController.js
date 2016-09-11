@@ -33,9 +33,30 @@ function destroy(req, res) {
   });
 }
 
+function update(req, res) {
+  db.Listing.findById({_id: req.params.id}, function(err, foundListing) {
+    if(err) { console.log('albumsController.update error', err); }
+    foundListing.imgUrl = req.body.imgUrl;
+    foundListing.street = req.body.street;
+    foundListing.city = req.body.city;
+    foundListing.state = req.body.state;
+    foundListing.zip = req.body.zip;
+    foundListing.title = req.body.title;
+    foundListing.rent = req.body.rent;
+    // foundListing.contact = req.body.contact;
+    // foundListing.details = req.body.details;
+    // foundListing.neighborhood = req.body.neighborhood;
+    foundListing.save(function(err, savedListing) {
+      if(err) { console.log('saving altered listing failed'); }
+      res.json(savedListing);
+    });
+  });
+}
+
 module.exports = {
   index: index,
   create: create,
   show: show,
-  destroy: destroy
+  destroy: destroy,
+  update: update
 }

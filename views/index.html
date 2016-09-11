@@ -39,6 +39,7 @@
             <div id="map"></div>
         </div>
         <div class="col-sm-4 col-md-4">
+          <!-- begin listingView: this shows titles of current listing -->
             <div id="listingView">
                 <h1>Top SF listings</h1>
                   <div id="listingTarget">
@@ -49,11 +50,11 @@
                         {{/each}}
                       </ul>
                     </script>
-
                   </div>
-
             </div>
         </div>
+
+        <!-- begin listing-modal-container: this shows a current listing -->
         <div id="listing-modal-container" class="row">
           <script id="listing-modal-template" type="text/x-handlebars-template">
             <div class="modal" id="myModal" role="dialog">
@@ -68,7 +69,7 @@
                       <p id="rent" class="text-center">${{rent}}</p>
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-listing-id={{_id}} id="editListing">Edit Listing</button>
+                    <button type="button" class="btn btn-primary" id="editListing">Edit Listing</button>
                     <button type="button" class="deleteBtn btn btn-danger pull-right" id="deleteListing">Delete Listing</button>
                   </div>
                 </div>
@@ -79,7 +80,7 @@
     </div>
 
 
-    <!-- begin listingModal: this is not visible until you call .modal() on it -->
+    <!-- begin listingModal: this creates a new listing -->
     <div class="modal fade" tabindex="-1" role="dialog" id="listingModal">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -177,6 +178,110 @@
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             <button type="button" class="btn btn-primary" id="addNewListing">Add New Listing</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+
+    <!-- begin updateListingModal: this allows updates to current listings -->
+    <div class="modal fade" tabindex="-1" role="dialog" id="updateListingModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Update Your Listing</h4>
+          </div>
+
+          <div class="modal-body">
+
+            <fieldset class='form-horizontal'>
+              <!-- imgUrl udpate-->
+              <div class="form-group">
+                <label class="col-md-4 control-label" for="listingImgUrl">Image</label>
+                <div class="col-md-4">
+                  <input id="updateListingImgUrl" name="listingImgUrl" type="text" placeholder="" class="form-control input-md" required="">
+                </div>
+              </div>
+
+              <!-- street update-->
+              <div class="form-group">
+                <label class="col-md-4 control-label" for="listingStreet">Street</label>
+                <div class="col-md-4">
+                  <input id="updateListingStreet" name="listingStreet" type="text" placeholder="" class="form-control input-md" required="">
+                </div>
+              </div>
+
+              <!-- city udpate-->
+              <div class="form-group">
+                <label class="col-md-4 control-label" for="listingCity">City</label>
+                <div class="col-md-4">
+                  <input id="updateListingCity" name="listingCity" type="text" placeholder="" class="form-control input-md" required="">
+                </div>
+              </div>
+
+              <!-- state update-->
+              <div class="form-group">
+                <label class="col-md-4 control-label" for="listingState">State</label>
+                <div class="col-md-4">
+                  <input id="updateListingState" name="listingState" type="text" placeholder="" class="form-control input-md" required="">
+                </div>
+              </div>
+
+              <!-- zip update-->
+              <div class="form-group">
+                <label class="col-md-4 control-label" for="listingZip">Zip Code</label>
+                <div class="col-md-4">
+                  <input id="updateListingZip" name="listingZip" type="number" placeholder="" class="form-control input-md" required="">
+                </div>
+              </div>
+
+              <!-- title update-->
+              <div class="form-group">
+                <label class="col-md-4 control-label" for="listingTitle">Title</label>
+                <div class="col-md-4">
+                  <input id="updateListingTitle" name="listingTitle" type="text" placeholder="" class="form-control input-md" required="">
+                </div>
+              </div>
+
+              <!-- rent update-->
+              <div class="form-group">
+                <label class="col-md-4 control-label" for="listingRent">Rent</label>
+                <div class="col-md-4">
+                  <input id="updateListingRent" name="listingRent" type="number" placeholder="" class="form-control input-md" required="">
+                </div>
+              </div>
+
+              <!-- Contact update-->
+              <!-- <div class="form-group">
+                <label class="col-md-4 control-label" for="listingContact">Contact</label>
+                <div class="col-md-4">
+                  <input id="updateListingContact" name="listingContact" type="text" placeholder="" class="form-control input-md">
+                </div>
+              </div> -->
+
+              <!-- Details update-->
+              <!-- <div class="form-group">
+                <label class="col-md-4 control-label" for="listingDetails">Details</label>
+                <div class="col-md-4">
+                  <input id="updateListingDetails" name="listingDetails" type="text" placeholder="" class="form-control input-md" required="">
+                </div>
+              </div> -->
+
+              <!-- Neighborhood update-->
+              <!-- <div class="form-group">
+                <label class="col-md-4 control-label" for="listingNeighborhood">Neighborhood</label>
+                <div class="col-md-4">
+                  <input id="updateListingNeighborhood" name="listingNeighborhood" type="text" placeholder="" class="form-control input-md" required="">
+                </div>
+              </div> -->
+            </fieldset>
+
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" id="updateListing">Update Listing</button>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
