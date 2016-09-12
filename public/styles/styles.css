@@ -1,21 +1,61 @@
 .jumbotron {
-  background-image: url(../images/goldengate.jpg);
+  background-image: url("../images/jumbo-img");
   background-size: cover;
   background-repeat: no-repeat;
-  color: #EEE;
+  background-color: #fff;
+  margin: 0;
+}
+
+body {
+  font-family: 'Nixie One', cursive;
 }
 
 .jumbotron .container {
-  height: 200px;
+  height: 100px;
 }
 
 #title {
   margin-top: -25px;
+  font-weight: 700;
+}
+
+#tagline {
+  font-size: 16px;
+}
+
+#map-container, #listview-container {
+  padding: 0;
+  box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
 }
 
 #map {
-  height: 400px;
-  width: 600px;
+  height: 650px;
+  width: 100%;
+}
+
+ul {
+  list-style-type: none;
+  font-size: 24px;
+  background-color: #eee;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  overflow: scroll;
+  height: 650px;
+}
+
+li {
+  padding: 20px;
+}
+
+li a {
+  text-decoration: none;
+  color: black;
+  font-weight: 700;
+}
+
+hr {
+  border: 2px solid #337ab7;
 }
 
 #listing-img {

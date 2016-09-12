@@ -1,5 +1,3 @@
-console.log("Sanity Check: JS is working!");
-
 // Global Variabales
 var listingsList;
 var map;
@@ -211,9 +209,6 @@ function handleNewListingSubmit(e) {
     zip: $zipField.val(),
     title: $titleField.val(),
     rent: $rentField.val(),
-    // contact: $contactField.val(),
-    // details: $detailsField.val(),
-    // neighborhood: $neighborhoodField.val()
   };
 
   // POST to SERVER
@@ -233,9 +228,6 @@ function handleNewListingSubmit(e) {
   $zipField.val('');
   $titleField.val('');
   $rentField.val('');
-  // $contactField.val('');
-  // $detailsField.val('');
-  // $neighborhoodField.val('');
 
   // close modal
   $modal.modal('hide');
@@ -281,13 +273,15 @@ function renderMarkers() {
 
 // geocodes addresses from the database into lat/long for map marker placement
 function geocodeAddress(geoAddress, id) {
+  var geoLat;
+  var geoLng;
   var geoLatLng;
   geocoder.geocode({
       address: geoAddress
     }, function(results, status) {
         if(status == 'OK') {
-            var geoLat = results[0].geometry.location.lat();
-            var geoLng = results[0].geometry.location.lng();
+            geoLat = results[0].geometry.location.lat();
+            geoLng = results[0].geometry.location.lng();
             geoLatLng = {
               lat: geoLat,
               lng: geoLng
@@ -300,9 +294,7 @@ function geocodeAddress(geoAddress, id) {
             });
 
             marker.addListener('click', function() {
-              //console.log('clicked: ' + );
-              //console.log(id);
-              openListingModal(id);
+              openListingModal(id, geoAddress);
             });
 
             markers.push(marker);
@@ -321,9 +313,7 @@ function setAllMap(map) {
   }
 }
 
-
-// handler to open the modal for an existing listing
-function openListingModal(id) {
+function openListingModal(id, addressString) {
   $.ajax({
     method: 'GET',
     url: 'api/listings/' + id,
@@ -331,7 +321,7 @@ function openListingModal(id) {
       deleteListingId = id;
       updateListingId = id;
       var listingModalHtml = listingModalTemplate({
-        imgUrl: "http://placehold.it/700x300",
+        imgUrl: "https://maps.googleapis.com/maps/api/streetview?size=700x300&location=" + addressString + "&fov=75&pitch=5&key=AIzaSyARQHjCO5uJhqZTFtRIW0_pl77gch1ve8s",
         title: json.title,
         street: json.street,
         city: json.city,
@@ -362,8 +352,6 @@ function initMap() {
 }
 
 
-// helper function to render all listings to view
-// note: we can empty and re-render the collection each time our post or update data changes
 function renderListings (listListings) {
   // empty existing posts from view
   $listingsList.empty();
