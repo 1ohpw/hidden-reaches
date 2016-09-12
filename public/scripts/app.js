@@ -17,14 +17,17 @@ var $stateField;
 var $zipField;
 var $titleField;
 var $rentField;
-// var $contactField;
-// var $detailsField;
-// var $neighborhoodField;
 var dataToUpdate = {};
 var listingId;
+var autocomplete;
 
 
 $(document).ready(function(){
+  initAutocomplete();
+
+  $('#createNewListing').on("click", function() {
+    $('#listingModal').modal();
+  });
 
   // sets map on the page
   initMap();
@@ -81,9 +84,6 @@ function onEditCallSuccess (json) {
   $zipField = $modal.find('#updateListingZip');
   $titleField = $modal.find('#updateListingTitle');
   $rentField = $modal.find('#updateListingRent');
-  // $contactField = $modal.find('#updateListingContact');
-  // $detailsField = $modal.find('#updateListingDetails');
-  // $neighborhoodField = $modal.find('#updateListingNeighborhood');
 
   $imgUrlField.val(listingToEdit.imgUrl);
   $streetField.val(listingToEdit.street);
@@ -92,9 +92,6 @@ function onEditCallSuccess (json) {
   $zipField.val(listingToEdit.zip);
   $titleField.val(listingToEdit.title);
   $rentField.val(listingToEdit.rent);
-  // $contactField.val(listingToEdit.contact);
-  // $detailsField.val(listingToEdit.details);
-  // $neighborhoodField.val(listingToEdit.neighborhood);
 
   $('#updateListing').on('click', handleUpdateListing);
 
@@ -114,9 +111,6 @@ function handleUpdateListing(e) {
     zip: $zipField.val(),
     title: $titleField.val(),
     rent: $rentField.val(),
-    // contact: $contactField.val(),
-    // details: $detailsField.val(),
-    // neighborhood: $neighborhoodField.val()
   };
 
   // close modal
@@ -144,10 +138,6 @@ function onUpdateCallSuccess (json) {
   allListings[listingToUpdate] = updatedListing;
   renderListings(allListings);
   renderMarkers();
-
-  // var listingMarkerToUpdate = markers.find(findListing);
-  // markers.splice(listingMarkerToUpdate, 1);
-  // setAllMap();
 }
 
 
@@ -196,9 +186,6 @@ function handleNewListingSubmit(e) {
   $zipField = $modal.find('#listingZip');
   $titleField = $modal.find('#listingTitle');
   $rentField = $modal.find('#listingRent');
-  // $contactField = $modal.find('#listingContact');
-  // $detailsField = $modal.find('#listingDetails');
-  // $neighborhoodField = $modal.find('#listingNeighborhood');
 
   // get data from modal fields
   var dataToPost = {
@@ -234,6 +221,46 @@ function handleNewListingSubmit(e) {
 
 };
 
+function initAutocomplete() {
+        // Create the autocomplete object, restricting the search to geographical
+        // location types.
+
+        autocomplete = new google.maps.places.Autocomplete(
+            /** @type {!HTMLInputElement} */(document.getElementById('autocomplete')),
+            {types: ['geocode']});
+
+        console.log(autocomplete);
+
+        // When the user selects an address from the dropdown, populate the address
+        // fields in the form.
+        autocomplete.addListener('place_changed', fillInAddress);
+      }
+
+
+function fillInAddress() {
+
+  var place = autocomplete.getPlace().address_components;
+  console.log(place);
+  $('#listingStreet').val(place[0].short_name + ' ' +  place[1].long_name);
+  $('#listingCity').val(place[3].long_name);
+  $('#listingState').val(place[5].short_name);
+  $('#listingZip').val(place[7].long_name);
+}
+
+function geolocate() {
+           var geolocation = {
+              lat: 37.7749,
+              lng: -122.4194
+            };
+            var circle = new google.maps.Circle({
+              center: geolocation,
+              radius: 6437.38
+            });
+            autocomplete.setBounds(circle.getBounds());
+
+
+        console.log('running geolocate');
+  }
 
 // handler for succesful new listing api response
 function newListingSuccess(json) {

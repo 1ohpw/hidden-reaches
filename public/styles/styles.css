@@ -1,7 +1,4 @@
 .jumbotron {
-  background-image: url("../images/jumbo-img");
-  background-size: cover;
-  background-repeat: no-repeat;
   background-color: #fff;
   margin: 0;
 }
@@ -33,7 +30,7 @@ body {
   width: 100%;
 }
 
-ul {
+#listings-view {
   list-style-type: none;
   font-size: 24px;
   background-color: #eee;
@@ -44,7 +41,7 @@ ul {
   height: 650px;
 }
 
-li {
+.listing-item {
   padding: 20px;
 }
 
@@ -56,6 +53,10 @@ li a {
 
 hr {
   border: 2px solid #337ab7;
+}
+
+.pac-container {
+  z-index: 100000;
 }
 
 #listing-img {

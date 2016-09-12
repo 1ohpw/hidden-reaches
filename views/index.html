@@ -15,9 +15,10 @@
     <!-- VENDOR SCRIPTS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.5/validator.min.js"></script>
     <!-- Google Maps API -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyARQHjCO5uJhqZTFtRIW0_pl77gch1ve8s&libraries=places"></script>
     <!-- Google Maps API key = AIzaSyARQHjCO5uJhqZTFtRIW0_pl77gch1ve8s -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyARQHjCO5uJhqZTFtRIW0_pl77gch1ve8s"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
 
     <!-- APPLICATION SCRIPTS -->
@@ -31,7 +32,7 @@
       <div class="container text-center">
         <h1 id="title">Hidden Reaches.</h1>
         <p id="tagline">Find your perfect bay area apartment at the right price.</p>
-        <button type='button' class='btn btn-primary add-listing' data-toggle="modal" data-target="#listingModal" id="createNewListing">Create a new listing</button>
+        <button type='button' class='btn btn-primary add-listing' id="createNewListing">Create a new listing</button>
       </div>
     </div>
 
@@ -44,9 +45,9 @@
             <div id="listingView">
                   <div id="listingTarget">
                     <script id="listings-template" type="text/x-handlebars-template">
-                      <ul>
+                      <ul id="listings-view">
                         {{#each listings}}
-                          <li><a onclick="openListingModal('{{_id}}', '{{street}} {{city}} {{state}} {{zip}}')" href="" data-toggle="modal" data-target="#{{_id}}">{{title}}</a></li>
+                          <li class="listing-item"><a onclick="openListingModal('{{_id}}', '{{street}} {{city}} {{state}} {{zip}}')" href="" data-toggle="modal" data-target="#{{_id}}">{{title}}</a></li>
                           <hr>
                         {{/each}}
                       </ul>
@@ -90,22 +91,24 @@
             <h4 class="modal-title">Create A New Listing</h4>
           </div>
 
-          <div class="modal-body">
+        <div class="modal-body">
 
-            <fieldset class='form-horizontal'>
-              <!-- imgUrl input-->
-              <div class="form-group">
-                <label class="col-md-4 control-label" for="listingImgUrl">Image</label>
-                <div class="col-md-4">
-                  <input id="listingImgUrl" name="listingImgUrl" type="text" placeholder="image url" class="form-control input-md" required="">
+          <form role="form" data-toggle="validator" class='form-horizontal'>
+
+              <!-- street input-->
+               <div class="form-group">
+                <label class="col-md-4 control-label">Address</label>
+                <div class="col-md-8">
+                  <input id="autocomplete" onFocus="geolocate()" type="text" class="form-control input-md" required>
                 </div>
               </div>
 
-              <!-- street input-->
-              <div class="form-group">
+              <div class="form-group has-feedback">
                 <label class="col-md-4 control-label" for="listingStreet">Street</label>
-                <div class="col-md-4">
-                  <input id="listingStreet" name="listingStreet" type="text" placeholder="street address" class="form-control input-md" required="">
+                <div class="col-md-8">
+                  <input id="listingStreet" onFocus="geolocate()" name="listingStreet" type="text" placeholder="street address" class="form-control input-md" disabled>
+                  <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                  <div class="help-block with-errors"></div>
                 </div>
               </div>
 
@@ -113,7 +116,7 @@
               <div class="form-group">
                 <label class="col-md-4 control-label" for="listingCity">City</label>
                 <div class="col-md-4">
-                  <input id="listingCity" name="listingCity" type="text" placeholder="city" class="form-control input-md" required="">
+                  <input id="listingCity" name="listingCity" type="text" placeholder="city" class="form-control input-md" disabled>
                 </div>
               </div>
 
@@ -121,68 +124,51 @@
               <div class="form-group">
                 <label class="col-md-4 control-label" for="listingState">State</label>
                 <div class="col-md-4">
-                  <input id="listingState" name="listingState" type="text" placeholder="example: CA" class="form-control input-md" required="">
+                  <input id="listingState" name="listingState" type="text" placeholder="example: CA" class="form-control input-md" disabled>
                 </div>
               </div>
 
               <!-- zip input-->
-              <div class="form-group">
+              <div class="form-group has-feedback">
                 <label class="col-md-4 control-label" for="listingZip">Zip Code</label>
                 <div class="col-md-4">
-                  <input id="listingZip" name="listingZip" type="number" placeholder="zip" class="form-control input-md" required="">
+                  <input id="listingZip" name="listingZip" type="text" maxLength="5" placeholder="zip" class="form-control input-md" disabled>
+                  <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                  <div class="help-block with-errors"></div>
                 </div>
               </div>
 
               <!-- title input-->
-              <div class="form-group">
+              <div class="form-group has-feedback">
                 <label class="col-md-4 control-label" for="listingTitle">Title</label>
                 <div class="col-md-4">
-                  <input id="listingTitle" name="listingTitle" type="text" placeholder="Snappy title" class="form-control input-md" required="">
+                  <input id="listingTitle" name="listingTitle" type="text" maxLength="28" placeholder="Snappy title" class="form-control input-md" required>
+                  <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                  <div class="help-block with-errors">Max of 28 characters</div>
                 </div>
               </div>
 
               <!-- rent input-->
-              <div class="form-group">
+              <div class="form-group has-feedback">
                 <label class="col-md-4 control-label" for="listingRent">Rent</label>
                 <div class="col-md-4">
-                  <input id="listingRent" name="listingRent" type="number" placeholder="$ monthly rent" class="form-control input-md" required="">
+                  <input id="listingRent" name="listingRent" type="number" min="0" max="1200" placeholder="$ monthly" class="form-control input-md" required>
+                  <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                  <div class="help-block with-errors">Max of $1200</div>
                 </div>
               </div>
 
-              <!-- Contact input-->
-              <!-- <div class="form-group">
-                <label class="col-md-4 control-label" for="listingContact">Contact</label>
-                <div class="col-md-4">
-                  <input id="listingContact" name="listingContact" type="text" placeholder="" class="form-control input-md">
-                </div>
-              </div> -->
-
-              <!-- Details input-->
-              <!-- <div class="form-group">
-                <label class="col-md-4 control-label" for="listingDetails">Details</label>
-                <div class="col-md-4">
-                  <input id="listingDetails" name="listingDetails" type="text" placeholder="Description details" class="form-control input-md" required="">
-                </div>
-              </div> -->
-
-              <!-- Neighborhood input-->
-              <!-- <div class="form-group">
-                <label class="col-md-4 control-label" for="listingNeighborhood">Neighborhood</label>
-                <div class="col-md-4">
-                  <input id="listingNeighborhood" name="listingNeighborhood" type="text" placeholder="Neighborhood" class="form-control input-md" required="">
-                </div>
-              </div> -->
-            </fieldset>
-
-          </div>
-
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" id="addNewListing">Add New Listing</button>
+              <div class="form-group">
+                <button type="submit" class="btn btn-primary" id="addNewListing">Add New Listing</button>
+              </div>
           </div>
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+
+          </form>
+
+        </div>
+      </div>
+    </div>
 
 
     <!-- begin updateListingModal: this allows updates to current listings -->
