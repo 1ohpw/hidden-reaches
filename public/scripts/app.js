@@ -1,5 +1,3 @@
-console.log("Sanity Check: JS is working!");
-
 // Global Variabales
 var listingsList;
 var map;
@@ -60,9 +58,6 @@ function handleNewListingSubmit(e) {
     zip: $zipField.val(),
     title: $titleField.val(),
     rent: $rentField.val(),
-    // contact: $contactField.val(),
-    // details: $detailsField.val(),
-    // neighborhood: $neighborhoodField.val()
   };
 
   // POST to SERVER
@@ -82,9 +77,6 @@ function handleNewListingSubmit(e) {
   $zipField.val('');
   $titleField.val('');
   $rentField.val('');
-  // $contactField.val('');
-  // $detailsField.val('');
-  // $neighborhoodField.val('');
 
   // close modal
   $modal.modal('hide');
@@ -184,8 +176,7 @@ function initMap() {
   });
 }
 
-// helper function to render all listings to view
-// note: we can empty and re-render the collection each time our post or update data changes
+
 function renderListings (listListings) {
   // empty existing posts from view
   $listingsList.empty();

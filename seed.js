@@ -26,10 +26,10 @@ var listingArray = [{
   rent: 1000,
 },{
   imgUrl: "",
-  street: "1625 Orchard Ave",
-  city: "San Leandro",
+  street: "301 King Street",
+  city: "San Francisco",
   state: "CA",
-  zip: 94577,
+  zip: 94158,
   title: "Apartment 1 BR",
   rent: 750,
 },{
@@ -58,10 +58,10 @@ var listingArray = [{
   rent: 1000,
 },{
   imgUrl: "",
-  street: "1625 Orchard Ave",
-  city: "San Leandro",
+  street: "301 King Street",
+  city: "San Francisco",
   state: "CA",
-  zip: 94577,
+  zip: 94158,
   title: "Apartment 1 BR",
   rent: 750,
 },{
@@ -90,10 +90,10 @@ var listingArray = [{
   rent: 1000,
 },{
   imgUrl: "",
-  street: "1625 Orchard Ave",
-  city: "San Leandro",
+  street: "301 King Street",
+  city: "San Francisco",
   state: "CA",
-  zip: 94577,
+  zip: 94158,
   title: "Apartment 1 BR",
   rent: 750,
 },{
@@ -122,10 +122,10 @@ var listingArray = [{
   rent: 1000,
 },{
   imgUrl: "",
-  street: "1625 Orchard Ave",
-  city: "San Leandro",
+  street: "301 King Street",
+  city: "San Francisco",
   state: "CA",
-  zip: 94577,
+  zip: 94158,
   title: "Apartment 1 BR",
   rent: 750,
 }];
