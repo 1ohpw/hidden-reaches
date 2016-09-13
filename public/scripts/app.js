@@ -10,7 +10,7 @@ var deleteListingId;
 var updateListingId;
 var markers = [];
 var $modal;
-var $imgUrlField;
+// var $imgUrlField;
 var $streetField;
 var $cityField;
 var $stateField;
@@ -20,6 +20,20 @@ var $rentField;
 var dataToUpdate = {};
 var listingId;
 var autocomplete;
+
+var $contactNameField;
+var $contactPhoneField;
+var $contactEmailField;
+var $contactFBField;
+// var $detailsField;
+// var $neighborhoodField;
+var dataToUpdate = {};
+var listingId;
+var contactDataToPost;
+var listingDataToPost;
+var contactDataToGet;
+var foundExistingContact = 0;
+var returnContact;
 
 
 $(document).ready(function(){
@@ -57,7 +71,6 @@ $(document).ready(function(){
   renderListings();
 
   // click to initiate API call to add a new listing
-  //$('#addNewListing').on('click', handleNewListingSubmit);
 
    $('#create-new-form').validator().on('submit', function(e) {
       if (!e.isDefaultPrevented()) {
@@ -66,8 +79,51 @@ $(document).ready(function(){
       }
 
   });
+  //$('#addNewListing').on('click', handleNewListingSubmit);
+  $('#getContact').on('click', handleGetContact);
+
 
 });
+
+
+// API call to get contact data
+function handleGetContact(e) {
+  e.preventDefault();
+  $modal = $('#listingModal');
+  $contactNameField = $modal.find('#listingContactName');
+
+  // get data for this contact
+  contactDataToGet = $contactNameField.val();
+
+  console.log(contactDataToGet);
+
+  $.ajax({
+    method: "GET",
+    url: 'api/contacts/' + contactDataToGet,
+    success: onGetContactSuccess
+  })
+}
+
+
+// handler for successful edit listing api response
+function onGetContactSuccess (json) {
+  $modal = $('#listingModal');
+  $contactNameField = $modal.find('#listingContactName');
+  $contactEmailField = $modal.find('#listingContactEmail');
+  $contactPhoneField = $modal.find('#listingContactPhone');
+  $contactFBField = $modal.find('#listingContactFB');
+  returnContact = json;
+  if (json) {
+      $contactNameField.val(returnContact.name);
+      $contactEmailField.val(returnContact.email);
+      $contactPhoneField.val(returnContact.phone);
+      $contactFBField.val(returnContact.facebookUrl);
+      foundExistingContact = 1;
+    } else {
+      $contactNameField.val('ADD NEW CONTACT');
+    };
+}
+
 
 
 // API call to get listing data to be updated
@@ -88,18 +144,18 @@ function handleEditListing(e) {
 function onEditCallSuccess (json) {
   var listingToEdit = json;
   $modal = $('#updateListingModal');
-  $imgUrlField = $modal.find('#updateListingImgUrl');
+  // $imgUrlField = $modal.find('#updateListingImgUrl');
   $streetField = $modal.find('#updateListingStreet');
-  $cityField = $modal.find('#updateListingCity');
-  $stateField = $modal.find('#updateListingState');
+  // $cityField = $modal.find('#updateListingCity');
+  // $stateField = $modal.find('#updateListingState');
   $zipField = $modal.find('#updateListingZip');
   $titleField = $modal.find('#updateListingTitle');
   $rentField = $modal.find('#updateListingRent');
 
-  $imgUrlField.val(listingToEdit.imgUrl);
+  // $imgUrlField.val(listingToEdit.imgUrl);
   $streetField.val(listingToEdit.street);
-  $cityField.val(listingToEdit.city);
-  $stateField.val(listingToEdit.state);
+  // $cityField.val(listingToEdit.city);
+  // $stateField.val(listingToEdit.state);
   $zipField.val(listingToEdit.zip);
   $titleField.val(listingToEdit.title);
   $rentField.val(listingToEdit.rent);
@@ -108,14 +164,13 @@ function onEditCallSuccess (json) {
 
 }
 
-
 // API call to update the listing
 function handleUpdateListing(e) {
   e.preventDefault();
 
   // get new data from modal fields
   dataToUpdate = {
-    imgUrl: $imgUrlField.val(),
+    // imgUrl: $imgUrlField.val(),
     street: $streetField.val(),
     city: $cityField.val(),
     state: $stateField.val(),
@@ -126,7 +181,6 @@ function handleUpdateListing(e) {
 
   // close modal
   $('#updateListingModal').modal('hide');
-
   $.ajax({
     method: "PUT",
     url: 'api/listings/' + updateListingId,
@@ -190,45 +244,87 @@ function onDeleteSuccess (json) {
 function handleNewListingSubmit(e) {
   //e.preventDefault();
   $modal = $('#listingModal');
-  $imgUrlField = $modal.find('#listingImgUrl');
+  // $imgUrlField = $modal.find('#listingImgUrl');
   $streetField = $modal.find('#listingStreet');
   $cityField = $modal.find('#listingCity');
   $stateField = $modal.find('#listingState');
   $zipField = $modal.find('#listingZip');
   $titleField = $modal.find('#listingTitle');
   $rentField = $modal.find('#listingRent');
+  $contactNameField = $modal.find('#listingContactName');
+  $contactEmailField = $modal.find('#listingContactEmail');
+  $contactPhoneField = $modal.find('#listingContactPhone');
+  $contactFBField = $modal.find('#listingContactFB');
+  // $detailsField = $modal.find('#listingDetails');
+  // $neighborhoodField = $modal.find('#listingNeighborhood');
 
-  // get data from modal fields
-  var dataToPost = {
-    imgUrl: $imgUrlField.val(),
+
+  if (foundExistingContact === 1) {
+    newContactSuccess(returnContact);
+    foundExistingContact = 0;
+  } else {
+
+      // get data from modal contact fields
+      contactDataToPost = {
+        name: $contactNameField.val(),
+        email: $contactEmailField.val(),
+        phone: $contactPhoneField.val(),
+        facebookUrl: $contactFBField.val()
+      };
+
+      // POST new contact to SERVER
+      $.ajax({
+        method: 'POST',
+        url: '/api/contacts',
+        data: contactDataToPost,
+        success: newContactSuccess
+      });
+
+  }
+};
+
+
+// handler for succesful new contact api response
+function newContactSuccess(json) {
+  var newListingContactId = json._id;
+
+  // get data from listing modal fields
+  listingDataToPost = {
+    // imgUrl: $imgUrlField.val(),
     street: $streetField.val(),
     city: $cityField.val(),
     state: $stateField.val(),
     zip: $zipField.val(),
     title: $titleField.val(),
     rent: $rentField.val(),
+    contact: newListingContactId
   };
 
   // POST to SERVER
   $.ajax({
     method: 'POST',
     url: '/api/listings',
-    data: dataToPost,
+    data: listingDataToPost,
     success: newListingSuccess,
     error: newListingError
   });
 
   // clear form
-  $imgUrlField.val('');
+  // $imgUrlField.val('');
   $streetField.val('');
   $cityField.val('');
   $stateField.val('');
   $zipField.val('');
   $titleField.val('');
   $rentField.val('');
+  $contactNameField.val('');
+  $contactEmailField.val('');
+  $contactPhoneField.val('');
+  $contactFBField.val('');
 
   // close modal
   $modal.modal('hide');
+
 
 };
 
@@ -276,6 +372,7 @@ function geolocate() {
 // handler for succesful new listing api response
 function newListingSuccess(json) {
   newListing = json;
+  console.log(newListing);
   var formattedAddress = newListing.street + ' ' + newListing.city + ',' +
                             newListing.state + ' ' + newListing.zip;
   var id = newListing._id;

@@ -93,6 +93,7 @@
 
         <div class="modal-body">
 
+<<<<<<< HEAD
           <form id="create-new-form" role="form" data-toggle="validator" class='form-horizontal'>
 
               <!-- street input-->
@@ -100,8 +101,6 @@
                 <label class="col-md-4 control-label">Address</label>
                 <div class="col-md-8">
                   <input id="autocomplete" onFocus="geolocate()" type="text" class="form-control input-md" required>
-                </div>
-              </div>
 
               <div class="form-group">
                 <label class="col-md-4 control-label" for="listingStreet">Street</label>
@@ -115,6 +114,7 @@
                 <label class="col-md-4 control-label" for="listingCity">City</label>
                 <div class="col-md-4">
                   <input id="listingCity" name="listingCity" type="text" class="form-control input-md" disabled>
+
                 </div>
               </div>
 
@@ -123,6 +123,7 @@
                 <label class="col-md-4 control-label" for="listingState">State</label>
                 <div class="col-md-4">
                   <input id="listingState" name="listingState" type="text" class="form-control input-md" disabled>
+
                 </div>
               </div>
 
@@ -154,6 +155,50 @@
                 </div>
               </div>
 
+              <div id="contactTitle">
+                <h4>Contact Info</h4>
+              </div>
+
+              <!-- Contact name input-->
+              <div class="form-group">
+                <label class="col-md-4 control-label" for="listingContactName">Name</label>
+                <div class="col-md-4">
+                  <div class="input-group">
+                    <input id="listingContactName" name="listingContactName" type="text" placeholder="First Last" class="form-control input-md">
+                    <span class="input-group-btn">
+                      <button class="btn btn-secondary" type="button" id="getContact">Get!</button>
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Contact email input-->
+              <div class="form-group">
+                <label class="col-md-4 control-label" for="listingContactEmail">email</label>
+                <div class="col-md-4">
+                  <input id="listingContactEmail" name="listingContactEmail" type="text" placeholder="@" class="form-control input-md">
+                </div>
+              </div>
+
+              <!-- Contact phone input-->
+              <div class="form-group">
+                <label class="col-md-4 control-label" for="listingContactPhone">Phone number</label>
+                <div class="col-md-4">
+                  <input id="listingContactPhone" name="listingContactPhone" type="text" placeholder="xxx-xxx-xxxx" class="form-control input-md">
+                </div>
+              </div>
+
+              <!-- Contact facebook url input-->
+              <div class="form-group">
+                <label class="col-md-4 control-label" for="listingContactFB">Facebook</label>
+                <div class="col-md-4">
+                  <input id="listingContactFB" name="listingContactFB" type="text" placeholder="url" class="form-control input-md">
+                </div>
+              </div>
+
+
+          </div>
+
           <div class="modal-footer">
               <div class="form-group">
                 <button type="submit" class="btn btn-primary" id="addNewListing">Add New Listing</button>
@@ -180,12 +225,12 @@
 
             <fieldset class='form-horizontal'>
               <!-- imgUrl udpate-->
-              <div class="form-group">
+              <!-- <div class="form-group">
                 <label class="col-md-4 control-label" for="listingImgUrl">Image</label>
                 <div class="col-md-4">
                   <input id="updateListingImgUrl" name="listingImgUrl" type="text" placeholder="" class="form-control input-md" required="">
                 </div>
-              </div>
+              </div> -->
 
               <!-- street update-->
               <div class="form-group">
@@ -196,20 +241,20 @@
               </div>
 
               <!-- city udpate-->
-              <div class="form-group">
+              <!-- <div class="form-group">
                 <label class="col-md-4 control-label" for="listingCity">City</label>
                 <div class="col-md-4">
                   <input id="updateListingCity" name="listingCity" type="text" placeholder="" class="form-control input-md" required="">
                 </div>
-              </div>
+              </div> -->
 
               <!-- state update-->
-              <div class="form-group">
+              <!-- <div class="form-group">
                 <label class="col-md-4 control-label" for="listingState">State</label>
                 <div class="col-md-4">
                   <input id="updateListingState" name="listingState" type="text" placeholder="" class="form-control input-md" required="">
                 </div>
-              </div>
+              </div> -->
 
               <!-- zip update-->
               <div class="form-group">

@@ -22,10 +22,21 @@ function create(req, res) {
   console.log(req.body);
   db.Listing.create(req.body, function(err, listing) {
     if (err) { console.log('error', err); }
-    console.log(listing);
-    res.json(listing);
+    // find the contact id from req.body
+    db.Contact.findOne({_id: req.body.contact}, function(err, contactId){
+      if (err) { return console.log(err); }
+      // add this contact to the listing
+      listing.contact = contactId;
+      listing.save(function(err, newListing){
+        if (err) { return console.log("save error: " + err); }
+        // send back the new listing
+        console.log(newListing);
+        res.json(newListing);
+      });
+    });
   });
 }
+
 
 function destroy(req, res) {
   db.Listing.findOneAndRemove({_id: req.params.id}, function(err, deletedListing) {

@@ -42,6 +42,10 @@ app.delete('/api/listings/:id', controllers.listings.destroy);
 
 app.put('/api/listings/:id', controllers.listings.update);
 
+app.post('/api/contacts', controllers.contacts.create);
+
+app.get('/api/contacts/:name', controllers.contacts.show);
+
 
 /**********
  * SERVER *
