@@ -28,6 +28,6 @@ Hidden Reaches features a Google Maps map with house icons at each listing, as w
 ##Code
 
 ##Screenshots
-<img src="./public/images/screenshots.png>
+<img src="./public/images/screenshots.png">
 
 
