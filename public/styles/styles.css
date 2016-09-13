@@ -55,6 +55,10 @@ hr {
   border: 2px solid #337ab7;
 }
 
+.form-group .control-label {
+  text-align: left;
+}
+
 .pac-container {
   z-index: 100000;
 }
@@ -72,6 +76,10 @@ hr {
   color: green;
   font-weight: 700;
   font-size: 48px;
+}
+
+#contact-container {
+  padding-bottom: 20px;
 }
 
 h4 {

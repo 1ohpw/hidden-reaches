@@ -9,9 +9,8 @@
     <!-- STYLESHEETS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css?family=Amatica+SC:400,700" rel="stylesheet"><link href="https://fonts.googleapis.com/css?family=Nixie+One" rel="stylesheet">
-    <link rel="stylesheet" href="/styles/styles.css">
     <!-- <link rel="stylesheet" href="../public/styles/styles.css"> -->
-
+    <link rel="stylesheet" href="/styles/styles.css">
     <!-- VENDOR SCRIPTS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
@@ -55,6 +54,7 @@
                   </div>
             </div>
         </div>
+    </div>
 
         <!-- begin listing-modal-container: this shows a current listing -->
         <div id="listing-modal-container" class="row">
@@ -79,7 +79,6 @@
             </div>
           </script>
         </div>
-    </div>
 
 
     <!-- begin listingModal: this creates a new listing -->
@@ -92,124 +91,142 @@
           </div>
 
         <div class="modal-body">
-
-<<<<<<< HEAD
           <form id="create-new-form" role="form" data-toggle="validator" class='form-horizontal'>
-
-              <!-- street input-->
-               <div class="form-group">
-                <label class="col-md-4 control-label">Address</label>
-                <div class="col-md-8">
-                  <input id="autocomplete" onFocus="geolocate()" type="text" class="form-control input-md" required>
-
-              <div class="form-group">
-                <label class="col-md-4 control-label" for="listingStreet">Street</label>
-                <div class="col-md-8">
-                  <input id="listingStreet" onFocus="geolocate()" name="listingStreet" type="text" class="form-control input-md" disabled>
+              <div id="listing-info-container">
+                <div class="form-group">
+                  <label class="col-md-offset-1 col-md-2 control-label">Address</label>
+                  <div class="col-md-8">
+                    <input id="autocomplete" onFocus="geolocate()" type="text" class="form-control input-md" required>
+                  </div>
                 </div>
-              </div>
 
-              <!-- city input-->
-              <div class="form-group">
-                <label class="col-md-4 control-label" for="listingCity">City</label>
-                <div class="col-md-4">
-                  <input id="listingCity" name="listingCity" type="text" class="form-control input-md" disabled>
-
+                <div class="form-group">
+                  <label class="col-md-offset-1 col-md-2 control-label" for="listingStreet">Street</label>
+                  <div class="col-md-8">
+                    <input id="listingStreet" name="listingStreet" type="text" class="form-control input-md" disabled>
+                  </div>
                 </div>
-              </div>
 
-              <!-- state input-->
-              <div class="form-group">
-                <label class="col-md-4 control-label" for="listingState">State</label>
-                <div class="col-md-4">
-                  <input id="listingState" name="listingState" type="text" class="form-control input-md" disabled>
+                <!-- city input-->
+                <div class="form-group">
+                  <label class="col-md-offset-1 col-md-2 control-label" for="listingCity">City</label>
+                  <div class="col-md-8">
+                    <input id="listingCity" name="listingCity" type="text" class="form-control input-md" disabled>
 
+                  </div>
                 </div>
-              </div>
 
-              <!-- zip input-->
-              <div class="form-group">
-                <label class="col-md-4 control-label" for="listingZip">Zip Code</label>
-                <div class="col-md-4">
-                  <input id="listingZip" name="listingZip" type="text" class="form-control input-md" disabled>
+                <!-- state input-->
+                <div class="form-group">
+                  <label class="col-md-offset-1 col-md-2 control-label" for="listingState">State</label>
+                  <div class="col-md-8">
+                    <input id="listingState" name="listingState" type="text" class="form-control input-md" disabled>
+
+                  </div>
                 </div>
-              </div>
 
-              <!-- title input-->
-              <div class="form-group has-feedback">
-                <label class="col-md-4 control-label" for="listingTitle">Title</label>
-                <div class="col-md-4">
-                  <input id="listingTitle" name="listingTitle" type="text" maxLength="28" placeholder="Snappy title" class="form-control input-md" required>
-                  <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-                  <div class="help-block with-errors">Max of 28 characters</div>
+                <!-- zip input-->
+                <div class="form-group">
+                  <label class="col-md-offset-1 col-md-2 control-label" for="listingZip">Zip Code</label>
+                  <div class="col-md-8">
+                    <input id="listingZip" name="listingZip" type="text" class="form-control input-md" disabled>
+                  </div>
                 </div>
-              </div>
 
-              <!-- rent input-->
-              <div class="form-group has-feedback">
-                <label class="col-md-4 control-label" for="listingRent">Rent</label>
-                <div class="col-md-4">
-                  <input id="listingRent" name="listingRent" type="number" min="0" max="1200" placeholder="$ monthly" class="form-control input-md" required>
-                  <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-                  <div class="help-block with-errors">Max of $1200</div>
+                <!-- title input-->
+                <div class="form-group has-feedback">
+                  <label class="col-md-offset-1 col-md-2 control-label" for="listingTitle">Title</label>
+                  <div class="col-md-8">
+                    <input id="listingTitle" name="listingTitle" type="text" maxLength="28" placeholder="Snappy title" class="form-control input-md" required>
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                    <div class="help-block with-errors">Max of 28 characters</div>
+                  </div>
                 </div>
-              </div>
 
-              <div id="contactTitle">
-                <h4>Contact Info</h4>
-              </div>
-
-              <!-- Contact name input-->
-              <div class="form-group">
-                <label class="col-md-4 control-label" for="listingContactName">Name</label>
-                <div class="col-md-4">
-                  <div class="input-group">
-                    <input id="listingContactName" name="listingContactName" type="text" placeholder="First Last" class="form-control input-md">
-                    <span class="input-group-btn">
-                      <button class="btn btn-secondary" type="button" id="getContact">Get!</button>
-                    </span>
+                <!-- rent input-->
+                <div class="form-group has-feedback">
+                  <label class="col-md-offset-1 col-md-2 control-label" for="listingRent">Rent</label>
+                  <div class="col-md-8">
+                    <input id="listingRent" name="listingRent" type="number" min="0" max="1200" placeholder="$ monthly" class="form-control input-md" required>
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                    <div class="help-block with-errors">Max of $1200</div>
                   </div>
                 </div>
               </div>
 
-              <!-- Contact email input-->
-              <div class="form-group">
-                <label class="col-md-4 control-label" for="listingContactEmail">email</label>
-                <div class="col-md-4">
-                  <input id="listingContactEmail" name="listingContactEmail" type="text" placeholder="@" class="form-control input-md">
+              <div id="contact-container">
+                <div id="contactTitle">
+                  <h4>Contact Info</h4>
+                </div>
+
+                <!-- Contact name input-->
+                <div class="form-group">
+                  <label class="col-md-offset-1 col-md-2 control-label" for="listingContactName">Name</label>
+                  <div class="col-md-8">
+                    <div class="input-group">
+                      <input id="listingContactName" name="listingContactName" type="text" placeholder="First Last" class="form-control input-md">
+                      <span class="input-group-btn">
+                        <button class="btn btn-secondary" type="button" id="getContact">Get!</button>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Contact email input-->
+                <div class="form-group">
+                  <label class="col-md-offset-1 col-md-2 control-label" for="listingContactEmail">email</label>
+                  <div class="col-md-8">
+                    <input id="listingContactEmail" name="listingContactEmail" type="text" placeholder="@" class="form-control input-md">
+                  </div>
+                </div>
+
+                <!-- Contact phone input-->
+                <div class="form-group">
+                  <label class="col-md-offset-1 col-md-2 control-label" for="listingContactPhone">Phone number</label>
+                  <div class="col-md-8">
+                    <input id="listingContactPhone" name="listingContactPhone" type="text" placeholder="xxx-xxx-xxxx" class="form-control input-md">
+                  </div>
+                </div>
+
+                <!-- Contact facebook url input-->
+                <div class="form-group">
+                  <label class="col-md-offset-1 col-md-2 control-label" for="listingContactFB">Facebook</label>
+                  <div class="col-md-8">
+                    <input id="listingContactFB" name="listingContactFB" type="text" placeholder="url" class="form-control input-md">
+                  </div>
                 </div>
               </div>
-
-              <!-- Contact phone input-->
-              <div class="form-group">
-                <label class="col-md-4 control-label" for="listingContactPhone">Phone number</label>
-                <div class="col-md-4">
-                  <input id="listingContactPhone" name="listingContactPhone" type="text" placeholder="xxx-xxx-xxxx" class="form-control input-md">
-                </div>
-              </div>
-
-              <!-- Contact facebook url input-->
-              <div class="form-group">
-                <label class="col-md-4 control-label" for="listingContactFB">Facebook</label>
-                <div class="col-md-4">
-                  <input id="listingContactFB" name="listingContactFB" type="text" placeholder="url" class="form-control input-md">
-                </div>
-              </div>
-
-
-          </div>
-
-          <div class="modal-footer">
-              <div class="form-group">
+              <div class="form-group text-center">
                 <button type="submit" class="btn btn-primary" id="addNewListing">Add New Listing</button>
               </div>
-          </div>
+          </form>
 
-         </form>
+          </div>
 
         </div>
       </div>
     </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     <!-- begin updateListingModal: this allows updates to current listings -->
@@ -314,7 +331,6 @@
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
-
 
 
   </body>
