@@ -264,17 +264,8 @@ function handleEditListing(e) {
 function onEditCallSuccess (json) {
   var listingToEdit = json;
   $modal = $('#updateListingModal');
-  // $imgUrlField = $modal.find('#updateListingImgUrl');
-
-  //$zipField = $modal.find('#updateListingZip');
   $titleField = $modal.find('#updateListingTitle');
   $rentField = $modal.find('#updateListingRent');
-
-  //$imgUrlField.val(listingToEdit.imgUrl);
-  //$streetField.val(listingToEdit.street);
-  //$cityField.val(listingToEdit.city);
-  //$stateField.val(listingToEdit.state);
-  //$zipField.val(listingToEdit.zip);
   $titleField.val(listingToEdit.title);
   $rentField.val(listingToEdit.rent);
 
@@ -284,15 +275,8 @@ function onEditCallSuccess (json) {
 
 // API call to update the listing
 function handleUpdateListing(e) {
-  //e.preventDefault();
-
   // get new data from modal fields
   dataToUpdate = {
-    // imgUrl: $imgUrlField.val(),
-    // street: $streetField.val(),
-    // city: $cityField.val(),
-    // state: $stateField.val(),
-    // zip: $zipField.val(),
     title: $titleField.val(),
     rent: $rentField.val()
   };
@@ -367,7 +351,6 @@ function onDeleteSuccess (json) {
 function handleNewListingSubmit(e) {
   //e.preventDefault();
   $modal = $('#listingModal');
-  // $imgUrlField = $modal.find('#listingImgUrl');
   $streetField = $modal.find('#listingStreet');
   $cityField = $modal.find('#listingCity');
   $stateField = $modal.find('#listingState');
@@ -378,8 +361,6 @@ function handleNewListingSubmit(e) {
   $contactEmailField = $modal.find('#listingContactEmail');
   $contactPhoneField = $modal.find('#listingContactPhone');
   $contactFBField = $modal.find('#listingContactFB');
-  // $detailsField = $modal.find('#listingDetails');
-  // $neighborhoodField = $modal.find('#listingNeighborhood');
 
 
   if (foundExistingContact === 1) {
@@ -413,7 +394,6 @@ function newContactSuccess(json) {
 
   // get data from listing modal fields
   listingDataToPost = {
-    // imgUrl: $imgUrlField.val(),
     street: $streetField.val(),
     city: $cityField.val(),
     state: $stateField.val(),
@@ -464,10 +444,6 @@ function initAutocomplete() {
             {
               bounds: bounds,
               types: ['geocode']});
-
-        //autocomplete.bindTo('bounds', map);
-
-        console.log(autocomplete);
 
         // When the user selects an address from the dropdown, populate the address
         // fields in the form.
