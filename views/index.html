@@ -93,7 +93,7 @@
 
         <div class="modal-body">
 
-          <form role="form" data-toggle="validator" class='form-horizontal'>
+          <form id="create-new-form" role="form" data-toggle="validator" class='form-horizontal'>
 
               <!-- street input-->
                <div class="form-group">
@@ -103,12 +103,10 @@
                 </div>
               </div>
 
-              <div class="form-group has-feedback">
+              <div class="form-group">
                 <label class="col-md-4 control-label" for="listingStreet">Street</label>
                 <div class="col-md-8">
-                  <input id="listingStreet" onFocus="geolocate()" name="listingStreet" type="text" placeholder="street address" class="form-control input-md" disabled>
-                  <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-                  <div class="help-block with-errors"></div>
+                  <input id="listingStreet" onFocus="geolocate()" name="listingStreet" type="text" class="form-control input-md" disabled>
                 </div>
               </div>
 
@@ -116,7 +114,7 @@
               <div class="form-group">
                 <label class="col-md-4 control-label" for="listingCity">City</label>
                 <div class="col-md-4">
-                  <input id="listingCity" name="listingCity" type="text" placeholder="city" class="form-control input-md" disabled>
+                  <input id="listingCity" name="listingCity" type="text" class="form-control input-md" disabled>
                 </div>
               </div>
 
@@ -124,17 +122,15 @@
               <div class="form-group">
                 <label class="col-md-4 control-label" for="listingState">State</label>
                 <div class="col-md-4">
-                  <input id="listingState" name="listingState" type="text" placeholder="example: CA" class="form-control input-md" disabled>
+                  <input id="listingState" name="listingState" type="text" class="form-control input-md" disabled>
                 </div>
               </div>
 
               <!-- zip input-->
-              <div class="form-group has-feedback">
+              <div class="form-group">
                 <label class="col-md-4 control-label" for="listingZip">Zip Code</label>
                 <div class="col-md-4">
-                  <input id="listingZip" name="listingZip" type="text" maxLength="5" placeholder="zip" class="form-control input-md" disabled>
-                  <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-                  <div class="help-block with-errors"></div>
+                  <input id="listingZip" name="listingZip" type="text" class="form-control input-md" disabled>
                 </div>
               </div>
 
@@ -164,7 +160,7 @@
               </div>
           </div>
 
-          </form>
+         </form>
 
         </div>
       </div>

@@ -29,6 +29,9 @@ $(document).ready(function(){
     $('#listingModal').modal();
   });
 
+  console.log($('#create-new-form'));
+
+
   // sets map on the page
   initMap();
 
@@ -54,7 +57,15 @@ $(document).ready(function(){
   renderListings();
 
   // click to initiate API call to add a new listing
-  $('#addNewListing').on('click', handleNewListingSubmit);
+  //$('#addNewListing').on('click', handleNewListingSubmit);
+
+   $('#create-new-form').validator().on('submit', function(e) {
+      if (!e.isDefaultPrevented()) {
+        e.preventDefault();
+        handleNewListingSubmit();
+      }
+
+  });
 
 });
 
@@ -177,7 +188,7 @@ function onDeleteSuccess (json) {
 
 // handler when submit new listing modal button is clicked:
 function handleNewListingSubmit(e) {
-  e.preventDefault();
+  //e.preventDefault();
   $modal = $('#listingModal');
   $imgUrlField = $modal.find('#listingImgUrl');
   $streetField = $modal.find('#listingStreet');
