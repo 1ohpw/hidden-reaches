@@ -289,10 +289,10 @@ function handleUpdateListing(e) {
   // get new data from modal fields
   dataToUpdate = {
     // imgUrl: $imgUrlField.val(),
-    street: "Street",
-    city: "This",
-    state: "Cali",
-    zip: 44112,
+    // street: $streetField.val(),
+    // city: $cityField.val(),
+    // state: $stateField.val(),
+    // zip: $zipField.val(),
     title: $titleField.val(),
     rent: $rentField.val()
   };
@@ -310,15 +310,20 @@ function handleUpdateListing(e) {
 // handler for successful update listing api response
 function onUpdateCallSuccess (json) {
   var updatedListing = json;
-  console.log(updatedListing);
   listingId = updatedListing._id;
+  var listingIndex;
+  findListingIndex();
 
-  function findListing(listing) {
-      return listing._id === listingId;
+  function findListingIndex() {
+      for(var index = 0; index < allListings.length; index++) {
+          if(allListings[index]._id === listingId) {
+              listingIndex = index;
+          }
+      }
   }
 
-  var listingToUpdate = allListings.find(findListing);
-  allListings[listingToUpdate] = updatedListing;
+  allListings[listingIndex] = updatedListing;
+  console.log(allListings[listingIndex]);
   renderListings(allListings);
   renderMarkers();
 }
@@ -577,7 +582,11 @@ function openListingModal(id, addressString) {
         street: json.street,
         city: json.city,
         state: json.state,
-        rent: json.rent
+        rent: json.rent,
+        contactName: json.contact.name,
+        contactEmail: json.contact.email,
+        contactPhone: json.contact.phone,
+        contactFB: json.contact.facebookUrl
       });
 
       $('#listing-modal-container').empty();
@@ -609,7 +618,7 @@ function renderListings (listListings) {
 
   // pass `allListings` into the template function
   var listingsHtml = template({ listings: listListings });
-
+  console.log(allListings);
   // append html to the view
   $listingsList.append(listingsHtml);
 }
