@@ -25,7 +25,27 @@ Hidden Reaches features a Google Maps map with house icons at each listing, as w
 	<li>MongoDB/Mongoose</li>
 </ul>
 
-##Screenshots
+#####Screenshots
 <img src="./public/images/screenshots.png">
 
+######Core Technical Requirements
+
+- [x] Express API
+- [x] RESTful Routes
+- [x] AJAX
+- [x] jQuery
+- [x] Templating
+- [x] MongoDB
+- [x] Visual Design
+- [x] Code Style
+- [x] Git
+- [x] Heroku
+- [x] Documentation
+
+####Flex Technical Requirements
+- [x] External API
+- [x] Data Validation
+- [x] Bootstrap
+- [x] Model Relationship
+- [ ] Sessions
 
