@@ -10,7 +10,7 @@ var ListingSchema = new Schema({
   zip: Number,
   title: String,
   rent: Number,
-  contact: [Contact.schema],
+  contact: {type: Schema.Types.ObjectId, ref: 'Contact'}
 });
 
 var Listing = mongoose.model('Listing', ListingSchema);
