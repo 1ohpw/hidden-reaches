@@ -25,8 +25,6 @@ Hidden Reaches features a Google Maps map with house icons at each listing, as w
 	<li>MongoDB/Mongoose</li>
 </ul>
 
-##Code
-
 ##Screenshots
 <img src="./public/images/screenshots.png">
 
