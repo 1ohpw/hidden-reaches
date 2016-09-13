@@ -35,9 +35,103 @@ var contactDataToGet;
 var foundExistingContact = 0;
 var returnContact;
 
+var bayAreaCities = [
+"Alameda",
+"Albany",
+"American Canyon",
+"Antioch",
+"Atherton",
+"Belmont",
+"Belvedere",
+"Benicia",
+"Berkeley",
+"Brentwood",
+"Brisbane",
+"Burlingame",
+"Calistoga",
+"Campbell",
+"Clayton",
+"Cloverdale",
+"Colma",
+"Concord",
+"Corte Madera",
+"Cotati",
+"Cupertino",
+"Daly City",
+"Danville",
+"Dixon",
+"Dublin",
+"East Palo Alto",
+"El Cerrito",
+"Emeryville",
+"Fairfax",
+"Foster City",
+"Fremont",
+"Gilroy",
+"Half Moon Bay",
+"Hayward",
+"Healdsburg",
+"Hercules",
+"Hillsborough",
+"Lafayette",
+"Larkspur",
+"Livermore",
+"Los Altos",
+"Los Altos Hills",
+"Los Gatos",
+"Menlo Park",
+"Mill Valley",
+"Millbrae",
+"Milpitas",
+"Monte Sereno",
+"Moraga",
+"Morgan Hill",
+"Mountain View",
+"Newark",
+"Novato",
+"Oakley",
+"Orinda",
+"Pacifica",
+"Palo Alto",
+"Petaluma",
+"Piedmont",
+"Pinole",
+"Pittsburg",
+"Pleasant Hill",
+"Pleasanton",
+"Portola Valley",
+"Richmond",
+"Rio Vista",
+"Rohnert Park",
+"Ross",
+"St. Helena",
+"San Anselmo",
+"San Bruno",
+"San Carlos",
+"San Leandro",
+"San Mateo",
+"San Pablo",
+"San Ramon",
+"Santa Clara",
+"Santa Rosa",
+"Saratoga",
+"Sausalito",
+"Sebastopol",
+"Sonoma",
+"South San Francisco",
+"Suisun City",
+"Sunnyvale",
+"Tiburon",
+"Union City",
+"Vacaville",
+"Vallejo",
+"Walnut Creek",
+"Windsor",
+"Woodside",
+"Yountville"];
+
 
 $(document).ready(function(){
-  initAutocomplete();
 
   $('#createNewListing').on("click", function() {
     $('#listingModal').modal();
@@ -48,6 +142,8 @@ $(document).ready(function(){
 
   // sets map on the page
   initMap();
+
+  initAutocomplete();
 
   // setting handlebars target variables
   $listingsList = $('#listingTarget');
@@ -72,7 +168,14 @@ $(document).ready(function(){
 
   // click to initiate API call to add a new listing
 
+
+
    $('#create-new-form').validator().on('submit', function(e) {
+      if($('#listingCity').val() != 'San Francisco') {
+        e.preventDefault();
+        alert("Not San Fran");
+      }
+
       if (!e.isDefaultPrevented()) {
         e.preventDefault();
         handleNewListingSubmit();
@@ -332,9 +435,17 @@ function initAutocomplete() {
         // Create the autocomplete object, restricting the search to geographical
         // location types.
 
+        var sw = new google.maps.LatLng(37.6879241, -122.47020789999999);
+        var ne = new google.maps.LatLng(37.9100783, -122.06518189999997);
+        var bounds = new google.maps.LatLngBounds(sw,ne);
+
         autocomplete = new google.maps.places.Autocomplete(
             /** @type {!HTMLInputElement} */(document.getElementById('autocomplete')),
-            {types: ['geocode']});
+            {
+              bounds: bounds,
+              types: ['geocode']});
+
+        //autocomplete.bindTo('bounds', map);
 
         console.log(autocomplete);
 
@@ -353,21 +464,6 @@ function fillInAddress() {
   $('#listingState').val(place[5].short_name);
   $('#listingZip').val(place[7].long_name);
 }
-
-function geolocate() {
-           var geolocation = {
-              lat: 37.7749,
-              lng: -122.4194
-            };
-            var circle = new google.maps.Circle({
-              center: geolocation,
-              radius: 6437.38
-            });
-            autocomplete.setBounds(circle.getBounds());
-
-
-        console.log('running geolocate');
-  }
 
 // handler for succesful new listing api response
 function newListingSuccess(json) {
