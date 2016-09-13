@@ -65,6 +65,7 @@ var bayAreaCities = [
 "El Cerrito",
 "Emeryville",
 "Fairfax",
+"Fairfield",
 "Foster City",
 "Fremont",
 "Gilroy",
@@ -79,6 +80,7 @@ var bayAreaCities = [
 "Los Altos",
 "Los Altos Hills",
 "Los Gatos",
+"Martinez",
 "Menlo Park",
 "Mill Valley",
 "Millbrae",
@@ -87,8 +89,10 @@ var bayAreaCities = [
 "Moraga",
 "Morgan Hill",
 "Mountain View",
+"Napa",
 "Newark",
 "Novato",
+"Oakland",
 "Oakley",
 "Orinda",
 "Pacifica",
@@ -100,6 +104,7 @@ var bayAreaCities = [
 "Pleasant Hill",
 "Pleasanton",
 "Portola Valley",
+"Redwood City",
 "Richmond",
 "Rio Vista",
 "Rohnert Park",
@@ -108,9 +113,12 @@ var bayAreaCities = [
 "San Anselmo",
 "San Bruno",
 "San Carlos",
+"San Francisco",
+"San Jose",
 "San Leandro",
 "San Mateo",
 "San Pablo",
+"San Rafael",
 "San Ramon",
 "Santa Clara",
 "Santa Rosa",
@@ -171,9 +179,18 @@ $(document).ready(function(){
 
 
    $('#create-new-form').validator().on('submit', function(e) {
-      if($('#listingCity').val() != 'San Francisco') {
+      var cityInBay = false;
+      console.log($('#listingCity').val());
+      bayAreaCities.forEach(function(bayCity) {
+        console.log(bayCity);
+        if($('#listingCity').val() == bayCity) {
+          cityInBay = true;
+        }
+      })
+
+      if(cityInBay == false) {
         e.preventDefault();
-        alert("Not San Fran");
+        alert("Please choose an Bay Area address");
       }
 
       if (!e.isDefaultPrevented()) {
@@ -248,18 +265,16 @@ function onEditCallSuccess (json) {
   var listingToEdit = json;
   $modal = $('#updateListingModal');
   // $imgUrlField = $modal.find('#updateListingImgUrl');
-  $streetField = $modal.find('#updateListingStreet');
-  // $cityField = $modal.find('#updateListingCity');
-  // $stateField = $modal.find('#updateListingState');
-  $zipField = $modal.find('#updateListingZip');
+
+  //$zipField = $modal.find('#updateListingZip');
   $titleField = $modal.find('#updateListingTitle');
   $rentField = $modal.find('#updateListingRent');
 
-  // $imgUrlField.val(listingToEdit.imgUrl);
-  $streetField.val(listingToEdit.street);
-  // $cityField.val(listingToEdit.city);
-  // $stateField.val(listingToEdit.state);
-  $zipField.val(listingToEdit.zip);
+  //$imgUrlField.val(listingToEdit.imgUrl);
+  //$streetField.val(listingToEdit.street);
+  //$cityField.val(listingToEdit.city);
+  //$stateField.val(listingToEdit.state);
+  //$zipField.val(listingToEdit.zip);
   $titleField.val(listingToEdit.title);
   $rentField.val(listingToEdit.rent);
 
@@ -269,17 +284,17 @@ function onEditCallSuccess (json) {
 
 // API call to update the listing
 function handleUpdateListing(e) {
-  e.preventDefault();
+  //e.preventDefault();
 
   // get new data from modal fields
   dataToUpdate = {
     // imgUrl: $imgUrlField.val(),
-    street: $streetField.val(),
-    city: $cityField.val(),
-    state: $stateField.val(),
-    zip: $zipField.val(),
+    street: "Street",
+    city: "This",
+    state: "Cali",
+    zip: 44112,
     title: $titleField.val(),
-    rent: $rentField.val(),
+    rent: $rentField.val()
   };
 
   // close modal
@@ -463,6 +478,8 @@ function fillInAddress() {
   $('#listingCity').val(place[3].long_name);
   $('#listingState').val(place[5].short_name);
   $('#listingZip').val(place[7].long_name);
+
+
 }
 
 // handler for succesful new listing api response
@@ -518,9 +535,12 @@ function geocodeAddress(geoAddress, id) {
               lng: geoLng
             }
 
+            var houseImage = "../images/home.png"
+
             var marker = new google.maps.Marker({
             position: geoLatLng,
             map: map,
+            icon: houseImage,
             animation: google.maps.Animation.DROP
             });
 
@@ -576,8 +596,8 @@ function openListingModal(id, addressString) {
 // function to initiate Google Map
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: 37.7749, lng: -122.4194},
-    zoom: 10,
+    center: {lat: 37.4419, lng: -122.1430},
+    zoom: 9,
     mapTypeId: 'hybrid'
   });
 }
