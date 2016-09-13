@@ -66,14 +66,14 @@
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                       <h2 class="text-center">{{title}}</h2>
                       <img id="listing-img" class="img-responsive center-block" src="{{imgUrl}}">
-                      <p id="street" class="text-center"><em>{{street}}</em></p>
+                      <p id="street" class="text-center">{{street}}</p>
                       <p id="city-state" class="text-center">{{city}}, {{state}}</p>
                       <p id="rent" class="text-center">${{rent}}</p>
-                      <p id="contactInfo" class="text-center"><em>CONTACT INFO</em></p>
+                      <h4 id="contactInfo" class="text-center">CONTACT INFO</h4>
                       <p id="contactName" class="text-center">{{contactName}}</p>
                       <p id="contactEmail" class="text-center">{{contactEmail}}</p>
                       <p id="contactPhone" class="text-center">{{contactPhone}}</p>
-                      <p id="contactFB" class="text-center">{{contactFB}}</p>
+                      <p id="contactFB" class="text-center"><a href="{{contactFB}}/denzale.reese"><img src="../images/fb.png"></a></p>
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-primary" id="editListing">Edit Listing</button>
@@ -253,21 +253,25 @@
 
           <div class="modal-body">
 
-            <form role="form" class='form-horizontal'>
+            <form role="form" class='form-horizontal' data-toggle="validator">
 
               <!-- title update-->
-              <div class="form-group">
+              <div class="form-group has-feeback">
                 <label class="col-md-4 control-label" for="listingTitle">Title</label>
                 <div class="col-md-4">
-                  <input id="updateListingTitle" name="listingTitle" type="text" placeholder="" class="form-control input-md" required="">
+                  <input id="updateListingTitle" name="listingTitle" type="text" maxLength="28" placeholder="" class="form-control input-md" required="">
+                  <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                  <div class="help-block with-errors">Max of 28 characters</div>
                 </div>
               </div>
 
               <!-- rent update-->
-              <div class="form-group">
+              <div class="form-group has-feedback">
                 <label class="col-md-4 control-label" for="listingRent">Rent</label>
                 <div class="col-md-4">
-                  <input id="updateListingRent" name="listingRent" type="number" placeholder="" class="form-control input-md" required="">
+                  <input id="updateListingRent" name="listingRent" type="number" min="0" max="1200" placeholder="" class="form-control input-md" required="">
+                  <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                  <div class="help-block with-errors">Max of $1200</div>
                 </div>
               </div>
 
