@@ -25,6 +25,59 @@ Hidden Reaches features a Google Maps map with house icons at each listing, as w
 	<li>MongoDB/Mongoose</li>
 </ul>
 
+##Code
+####Bay Area Address verification
+
+```var cityInBay = false;
+      bayAreaCities.forEach(function(bayCity) {
+        if($('#listingCity').val() == bayCity) {
+          cityInBay = true;
+        }
+      });
+
+      if(cityInBay == false) {
+        e.preventDefault();
+        alert("Please choose an Bay Area address");
+      }
+```
+
+####Get Existing Contact
+```function handleGetContact(e) {
+  e.preventDefault();
+  $modal = $('#listingModal');
+  $contactNameField = $modal.find('#listingContactName');
+
+  // get data for this contact
+  contactDataToGet = $contactNameField.val();
+
+  $.ajax({
+    method: "GET",
+    url: 'api/contacts/' + contactDataToGet,
+    success: onGetContactSuccess
+  })
+}
+
+
+// handler for successful edit listing api response
+function onGetContactSuccess (json) {
+  $modal = $('#listingModal');
+  $contactNameField = $modal.find('#listingContactName');
+  $contactEmailField = $modal.find('#listingContactEmail');
+  $contactPhoneField = $modal.find('#listingContactPhone');
+  $contactFBField = $modal.find('#listingContactFB');
+  returnContact = json;
+  if (json) {
+      $contactNameField.val(returnContact.name);
+      $contactEmailField.val(returnContact.email);
+      $contactPhoneField.val(returnContact.phone);
+      $contactFBField.val(returnContact.facebookUrl);
+      foundExistingContact = 1;
+    } else {
+      $contactNameField.val('ADD NEW CONTACT');
+    };
+}
+```
+
 ##Screenshots
 <img src="./public/images/screenshots.png">
 

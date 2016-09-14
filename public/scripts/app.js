@@ -180,9 +180,7 @@ $(document).ready(function(){
 
    $('#create-new-form').validator().on('submit', function(e) {
       var cityInBay = false;
-      console.log($('#listingCity').val());
       bayAreaCities.forEach(function(bayCity) {
-        console.log(bayCity);
         if($('#listingCity').val() == bayCity) {
           cityInBay = true;
         }
@@ -214,8 +212,6 @@ function handleGetContact(e) {
 
   // get data for this contact
   contactDataToGet = $contactNameField.val();
-
-  console.log(contactDataToGet);
 
   $.ajax({
     method: "GET",
